@@ -1,14 +1,53 @@
-<h1>Cadastro de usuários</h1>
-<form>
+<h1>Cadastro</h1>
+<form [formGroup]="FormCadUser" (submit)="onSubmit()">
   <div>
     <label for="email">E-mail</label>
-    <input type="email" id="email">
+    <input type="email" id="email" formControlName="email">
+    <div *ngIf="FormCadUser.controls.email.touched && FormCadUser.controls.email.errors">
+       
+      <p *ngIf="FormCadUser.controls.email.hasError('required')">
+          Informe o seu e-mail
+        </p>
+        
+        <p *ngIf="FormCadUser.controls.email.hasError('email')">
+          Informe um e-mail válido
+        </p>
+        
+        <p *ngIf="FormCadUser.controls.email.hasError('minlength')">
+          O e-mail deve ter no mínimo 8 digitos
+        </p>
+        
+        <p *ngIf="FormCadUser.controls.email.hasError('maxlength')">
+          O e-mail deve ter no máximo 100 digitos
+        </p>
+
+    </div>
   </div>
   <div>
     <label for="senha">Senha</label>
-    <input type="password" id="senha">
+    <input type="password" id="senha" formControlName="senha">
+    <div *ngIf="FormCadUser.controls.senha.touched && FormCadUser.controls.senha.errors">
+      
+      <p *ngIf="FormCadUser.controls.senha.hasError('required')">
+        O campo senha deve ser informado
+      </p>
+      
+      <p *ngIf="FormCadUser.controls.senha.hasError('minlength')">
+        O senha deve ter no mínimo 6 digitos
+      </p>
+
+      <p *ngIf="FormCadUser.controls.senha.hasError('maxlength')">
+        A senha deve ter no máximo 20 digitos
+      </p>
+
+  </div>
   </div>
   <div>
-    <button type="submit">Cadastrar</button>
+    <button 
+      type="submit"
+      [disabled]="FormCadUser.invalid"
+    >
+      Cadastrar
+    </button>
   </div>
 </form>
