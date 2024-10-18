@@ -5,13 +5,15 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-form-login-user',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbAlert
   ],
   templateUrl: './form-login-user.component.html',
   styleUrl: './form-login-user.component.css'
@@ -19,16 +21,21 @@ import {
 export class FormLoginUserComponent {
 
   public readonly FormLoginUser = new FormBuilder().group({
-    email: ['', [Validators.required, Validators.email]],
-    senha: ['', [Validators.required]],
+    email: ['', [
+      Validators.required,
+      Validators.email,
+      Validators.minLength(8),
+      Validators.maxLength(100)
+    ]],
+    senha: ['', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(20)
+    ]],
   });
 
   public onSubmit() {
-    const email: string | null = this.FormLoginUser.controls.email.value;
-    const senha: string | null = this.FormLoginUser.controls.senha.value;
-
-    console.log(email);
-    console.log(senha)
+    console.log(this.FormLoginUser.controls);
   }
 
 }
