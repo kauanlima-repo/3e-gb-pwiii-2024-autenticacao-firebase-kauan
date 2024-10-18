@@ -5,13 +5,15 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-form-login-user',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbAlert
   ],
   templateUrl: './form-login-user.component.html',
   styleUrl: './form-login-user.component.css'
