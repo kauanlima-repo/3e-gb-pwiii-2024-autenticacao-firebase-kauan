@@ -43,7 +43,7 @@ export class FormLoginUserComponent {
   ) {}
 
   public async login(email: string, senha: string) {
-    await this.authService.createUser(email, senha)
+    await this.authService.emailPasswordLogin(email, senha)
       .then((data: any) => {
         console.log(data);
         this.status = 'Usuário logado com sucesso!';
