@@ -5,7 +5,7 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgbAlert
+    NgbAlertModule
   ],
   templateUrl: './form-login-user.component.html',
   styleUrl: './form-login-user.component.css'

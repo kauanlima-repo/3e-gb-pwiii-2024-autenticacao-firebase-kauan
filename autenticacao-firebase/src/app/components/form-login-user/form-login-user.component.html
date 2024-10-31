@@ -1,5 +1,13 @@
 <div class="w-100 p-4 border-info border-1 border border-opacity-50 rounded-3 shadow">
   <h1>Login</h1>
+  <ngb-alert 
+    *ngIf="status"
+    [dismissible]="true"
+    [type]="statusType" 
+    (closed)="clear()"
+  >
+    {{ status }}
+  </ngb-alert>
   <form [formGroup]="FormLoginUser" (submit)="onSubmit()">
     <div class="mb-3">
       <label for="email" class="form-label">E-mail</label>
