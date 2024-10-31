@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-form-cad-user',
@@ -9,7 +10,7 @@ import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgbAlert
+    NgbAlertModule
   ],
   templateUrl: './form-cad-user.component.html',
   styleUrl: './form-cad-user.component.css'
@@ -29,17 +30,47 @@ export class FormCadUserComponent {
       Validators.maxLength(20)
     ]],
   });
-  
-  public register() {
-    const email: string | null = this.FormCadUser.controls.email.value;
-    const senha: string | null = this.FormCadUser.controls.senha.value;
 
-    console.log(email);
-    console.log(senha)
+  status: string = '';
+  statusType: string = '';
+  
+  constructor(
+    private readonly authService: AuthService
+  ) {}
+
+  public async register(email: string, senha: string) {
+    await this.authService.createUser(email, senha)
+      .then((data: any) => {
+        console.log(data);
+        this.status = 'Usuário cadastrado com sucesso!';
+        this.statusType = 'success';
+      })
+      .catch((erro: any) => {
+        console.log(erro);
+        this.status = 'Erro ao cadastrar usuário, tente novamente';
+        this.statusType = 'danger';
+      })
+  }
+
+  clear() {
+    if(this.statusType === 'success') {
+      this.FormCadUser.controls.email.reset();
+      this.FormCadUser.controls.senha.reset();
+    }
+
+    this.status = '';
+    this.statusType = '';
   }
 
   public onSubmit() {
-    console.log(this.FormCadUser.controls);
+    const email: string = this.FormCadUser.controls.email.value || '';
+    const senha: string = this.FormCadUser.controls.senha.value || '';
+
+    console.log(email, senha);
+
+    if (email && senha) {
+      this.register(email, senha);
+    }
   }
 
 }

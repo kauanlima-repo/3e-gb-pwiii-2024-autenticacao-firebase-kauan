@@ -5,7 +5,8 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-form-login-user',
@@ -13,7 +14,7 @@ import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgbAlert
+    NgbAlertModule
   ],
   templateUrl: './form-login-user.component.html',
   styleUrl: './form-login-user.component.css'
@@ -34,8 +35,45 @@ export class FormLoginUserComponent {
     ]],
   });
 
-  public onSubmit() {
-    console.log(this.FormLoginUser.controls);
+  status: string = '';
+  statusType: string = '';
+  
+  constructor(
+    private readonly authService: AuthService
+  ) {}
+
+  public async login(email: string, senha: string) {
+    await this.authService.emailPasswordLogin(email, senha)
+      .then((data: any) => {
+        console.log(data);
+        this.status = 'Usuário logado com sucesso!';
+        this.statusType = 'success';
+      })
+      .catch((erro: any) => {
+        console.log(erro);
+        this.status = 'Erro ao logar usuário, tente novamente';
+        this.statusType = 'danger';
+      })
   }
 
+  clear() {
+    if(this.statusType === 'success') {
+      this.FormLoginUser.controls.email.reset();
+      this.FormLoginUser.controls.senha.reset();
+    }
+
+    this.status = '';
+    this.statusType = '';
+  }
+
+  public onSubmit() {
+    const email: string = this.FormLoginUser.controls.email.value || '';
+    const senha: string = this.FormLoginUser.controls.senha.value || '';
+
+    console.log(email, senha);
+
+    if (email && senha) {
+      this.login(email, senha);
+    }
+  }
 }
