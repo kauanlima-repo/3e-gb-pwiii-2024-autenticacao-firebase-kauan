@@ -52,8 +52,25 @@ export class FormCadUserComponent {
       })
   }
 
+  clear() {
+    if(this.statusType === 'success') {
+      this.FormCadUser.controls.email.reset();
+      this.FormCadUser.controls.senha.reset();
+    }
+
+    this.status = '';
+    this.statusType = '';
+  }
+
   public onSubmit() {
-    console.log(this.FormCadUser.controls);
+    const email: string = this.FormCadUser.controls.email.value || '';
+    const senha: string = this.FormCadUser.controls.senha.value || '';
+
+    console.log(email, senha);
+
+    if (email && senha) {
+      this.register(email, senha)
+    }
   }
 
 }
