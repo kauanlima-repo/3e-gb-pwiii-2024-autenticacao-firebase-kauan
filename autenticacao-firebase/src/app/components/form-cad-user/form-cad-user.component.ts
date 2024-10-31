@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth/auth.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgbAlert
+    NgbAlertModule
   ],
   templateUrl: './form-cad-user.component.html',
   styleUrl: './form-cad-user.component.css'
@@ -69,7 +69,7 @@ export class FormCadUserComponent {
     console.log(email, senha);
 
     if (email && senha) {
-      this.register(email, senha)
+      this.register(email, senha);
     }
   }
 
