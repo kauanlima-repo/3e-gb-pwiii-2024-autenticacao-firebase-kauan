@@ -17,5 +17,15 @@ export const routes: Routes = [
     path:'register',
     loadComponent: () => FormCadUserComponent,
     title: 'FireAuth - Cadastro'
-  }
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent),
+    title: 'FireAuth - Dashboard'
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
 ];
