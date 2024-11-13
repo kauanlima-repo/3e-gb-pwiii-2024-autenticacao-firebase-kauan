@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { FormCadUserComponent } from './components/form-cad-user/form-cad-user.component';
 import { FormLoginUserComponent } from './components/form-login-user/form-login-user.component';
+import { loginGuard } from './guards/login/login.guard';
 
 export const routes: Routes = [
   {
@@ -21,7 +22,8 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    title: 'FireAuth - Dashboard'
+    title: 'FireAuth - Dashboard',
+    canActivate: [loginGuard]
   },
   {
     path: '**',
