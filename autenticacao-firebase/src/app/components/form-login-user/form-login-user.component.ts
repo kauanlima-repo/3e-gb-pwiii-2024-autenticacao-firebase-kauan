@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-login-user',
@@ -39,15 +40,21 @@ export class FormLoginUserComponent {
   statusType: string = '';
   
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly navRouter: Router
   ) {}
 
   public async login(email: string, senha: string) {
     await this.authService.emailPasswordLogin(email, senha)
       .then((data: any) => {
-        console.log(data);
-        this.status = 'Usuário logado com sucesso!';
-        this.statusType = 'success';
+        const { user } = data;
+
+        this.authService.setLoggedUser(
+          user.email, 
+          user.uid
+        );
+        
+        this.navRouter.navigateByUrl('/dashboard');
       })
       .catch((erro: any) => {
         console.log(erro);
