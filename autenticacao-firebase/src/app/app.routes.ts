@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { FormCadUserComponent } from './components/form-cad-user/form-cad-user.component';
 import { FormLoginUserComponent } from './components/form-login-user/form-login-user.component';
 import { loginGuard } from './guards/login/login.guard';
+import { authGuard } from './guards/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -12,7 +13,8 @@ export const routes: Routes = [
   {
     path:'login',
     loadComponent: () => FormLoginUserComponent,
-    title: 'FireAuth - Login'
+    title: 'FireAuth - Login',
+    canActivate: [authGuard]
   },
   {
     path:'register',
