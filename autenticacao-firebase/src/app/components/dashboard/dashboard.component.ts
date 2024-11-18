@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -12,13 +12,27 @@ import { AuthService } from '../../services/auth/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
-  readonly usuarioLogado: string = 'testeUsuario@teste.com';
+export class DashboardComponent implements OnInit {
+  usuarioLogado: string = '';
 
   constructor (
     private readonly authService: AuthService,
     private readonly navRouter: Router
   ) {}
+
+  ngOnInit(): void {
+    const loggedUser = this.authService.getLoggedUser();
+
+    if (!loggedUser) {
+      return;
+    };
+
+    const objUser = JSON.parse(loggedUser);
+
+    this.usuarioLogado = objUser.email;
+
+    console.log(this.usuarioLogado)
+  }
 
   sair() {
     this.authService.removeLoggedUser();
