@@ -1,0 +1,34 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <!-- ========== Botao Hamburguer ========== -->
+    <button 
+      class="navbar-toggler" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#firebaseAuthNavbar" 
+      aria-controls="firebaseAuthNavbar" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- ========== Menu colapsado ========== -->
+    <div class="collapse navbar-collapse" id="firebaseAuthNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/login">Login</a>
+          </li>
+        </ul>
+    </div>
+
+  </nav>
+</header>
+
+<div class="container">
+  <main class="w-100 h-100 d-flex justify-content-center align-items-center">
+    <router-outlet />
+  </main>
+</div>
